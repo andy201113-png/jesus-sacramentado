@@ -1,0 +1,22 @@
+{
+  "name": "El Santísimo - Oraciones diarias",
+  "short_name": "El Santísimo",
+  "description": "Oraciones diarias frente al Santísimo Sacramento",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1a0f",
+  "theme_color": "#c9a05e",
+  "gcm_sender_id": "103953800507",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/Cx1CdZj2/Copilot-20260825-005255.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/Cx1CdZj2/Copilot-20260825-005255.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
