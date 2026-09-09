@@ -12,16 +12,38 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Evita scroll, toda la pantalla es el enlace */
+        }
+
         body {
             font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             background: #0a0a0f;
-            min-height: 100vh;
-            min-height: 100dvh;
+            color: #f5e9d3;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            cursor: pointer; /* Indica que todo es clicable */
+        }
+
+        /* Enlace que ocupa toda la pantalla */
+        .pantalla-completa {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #f5e9d3;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            text-decoration: none;
+            color: inherit;
             padding: 20px;
             text-align: center;
             background-image:
@@ -29,14 +51,6 @@
                 radial-gradient(ellipse at center bottom, rgba(30, 10, 60, 0.5) 0%, transparent 60%),
                 linear-gradient(180deg, #0d0d15 0%, #1a0f2a 100%);
             background-attachment: fixed;
-        }
-
-        .container {
-            max-width: 500px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -51,6 +65,7 @@
             margin-bottom: 20px;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
             animation: glow 2s ease-in-out infinite alternate;
+            pointer-events: none; /* No interfiere con el enlace */
         }
 
         @keyframes glow {
@@ -65,6 +80,7 @@
             margin-bottom: 12px;
             color: #ffd966;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            pointer-events: none;
         }
 
         .subtitulo {
@@ -73,6 +89,7 @@
             color: #d4c5b0;
             margin-bottom: 30px;
             padding: 0 10px;
+            pointer-events: none;
         }
 
         .subtitulo em {
@@ -80,13 +97,13 @@
             font-style: normal;
         }
 
-        .boton-principal {
+        /* El botón ahora es solo visual, no un enlace independiente */
+        .boton-visual {
             display: inline-block;
             background: linear-gradient(145deg, #ffb347, #e6a020);
             color: #1a0f00;
             font-size: 1.6rem;
             font-weight: 800;
-            text-decoration: none;
             padding: 20px 48px;
             border-radius: 60px;
             border: 3px solid #ffd966;
@@ -94,20 +111,17 @@
                 0 0 25px rgba(255, 180, 50, 0.7),
                 0 8px 0 #a06a10,
                 0 12px 30px rgba(0, 0, 0, 0.6);
-            transition: all 0.15s ease;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            cursor: pointer;
             width: 100%;
             max-width: 400px;
             text-align: center;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            pointer-events: none; /* El clic lo captura el enlace padre */
             position: relative;
             overflow: hidden;
         }
 
-        .boton-principal::after {
+        .boton-visual::after {
             content: '';
             position: absolute;
             top: -50%;
@@ -129,15 +143,7 @@
             100% { transform: translateX(100%) rotate(0deg); }
         }
 
-        .boton-principal:active {
-            transform: translateY(6px);
-            box-shadow:
-                0 0 20px rgba(255, 180, 50, 0.6),
-                0 2px 0 #a06a10,
-                0 6px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .boton-principal .icono-btn {
+        .boton-visual .icono-btn {
             font-size: 1.8rem;
             margin-right: 10px;
             vertical-align: middle;
@@ -148,6 +154,7 @@
             font-size: 0.85rem;
             color: #9a8a7a;
             font-style: italic;
+            pointer-events: none;
         }
 
         .frase-final span {
@@ -156,11 +163,11 @@
 
         @media (max-width: 380px) {
             h1 { font-size: 1.8rem; }
-            .boton-principal {
+            .boton-visual {
                 font-size: 1.3rem;
                 padding: 16px 30px;
             }
-            .boton-principal .icono-btn {
+            .boton-visual .icono-btn {
                 font-size: 1.5rem;
             }
             .icon-cruz { font-size: 52px; }
@@ -168,7 +175,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Todo el contenido es un único enlace; cualquier toque en la pantalla redirige -->
+    <a href="https://el-santisimo-oraciones.vercel.app/?id=22" class="pantalla-completa" aria-label="Ver videos de oraciones frente al Santísimo Sacramento">
         <div class="icon-cruz">✝️</div>
         <h1>El Santísimo Oraciones</h1>
         <p class="subtitulo">
@@ -177,27 +185,16 @@
             Prepara tu corazón para la adoración.
         </p>
 
-        <a href="https://el-santisimo-oraciones.vercel.app/?id=22" class="boton-principal">
+        <!-- Botón meramente visual, el enlace real es el contenedor -->
+        <span class="boton-visual">
             <span class="icono-btn">▶</span> VER VIDEOS
-        </a>
+        </span>
 
         <p class="frase-final">
             «Señor mío y Dios mío» <span>— Juan 20:28</span>
         </p>
-    </div>
+    </a>
 
-    <!-- Script mínimo para precargar el enlace (opcional, mejora UX sin consumir recursos) -->
-    <script>
-        // Prefetch del destino al pasar el dedo o al cargar (muy ligero)
-        const link = document.querySelector('.boton-principal');
-        if (link) {
-            link.addEventListener('touchstart', () => {
-                const prefetch = document.createElement('link');
-                prefetch.rel = 'prefetch';
-                prefetch.href = link.href;
-                document.head.appendChild(prefetch);
-            }, { passive: true });
-        }
-    </script>
+    <!-- Sin JavaScript adicional: el enlace nativo cubre todo -->
 </body>
 </html>
